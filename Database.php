@@ -2,10 +2,7 @@
 
 class Database{
     public $pdo;
-
     public function __construct($config, $username = 'root', $password=''){
-
-        
         //mysql:host=localhost;port=3306;dbname=phpapp;charset=phpapp
         $dsn = "mysql:" . http_build_query($config, "", ";");
 
@@ -13,10 +10,9 @@ class Database{
             PDO::ATTR_DEFAULT_FETCH_MODE=> PDO::FETCH_ASSOC
         ]);
     }
-
-    public function query($query){
+    public function query($query, $params=[]){
         $statement = $this->pdo->prepare($query);
-        $statement->execute();
+        $statement->execute($params);
         return $statement;
     }
 }
